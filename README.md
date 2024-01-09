@@ -1,93 +1,94 @@
-# iScience_GlioLymph_classification
+# Preoperative differentiation of Glioblastoma and Lymphoma using Deep Learning
 
 
 
-## Getting started
+## Abstract
+Glioblastoma and lymphoma are challenging to differentiate due to their similar morphology, making preoperative MRI diagnosis often equivo-
+cal. Accurate differentiation is crucial due to different treatment pathways,
+and the use of corticosteroids in lymphoma complicates pathological diag-
+nosis. Neural networks, particularly convolutional neural networks, show
+promising results, but their black-box nature raises concerns about inter-
+pretability and explainability, which is essential for general data protection
+regulation compliance in clinical settings. While previous studies have in-
+vestigated deep learning for brain tumor differentiation, interpretability
+and explainability have not been sufficiently explored. This work presents
+a deep learning approach for glioblastoma and lymphoma differentiation
+using histopathological diagnosis as ground truth. The aim is to develop
+a clinician decision support system and to investigate interpretability and
+explainability using saliency maps, Monte Carlo dropout and deep ensem-
+bles. The model achieved an area under the receiving operative character-
+istics curve of 0.9 and an accuracy of 0.8, outperforming the average radiol-
+ogist’s accuracy of 0.79. However, challenges remain, including robustness,
+shifts in data distribution and clinical usability. Future work should ad-
+dress these issues to facilitate the clinical implementation of deep learning
+based tumor differentiation.
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## Results
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+<img src="ROCcurve.png" width="320" align="center"/>
 
-## Add your files
+Figure 1: ROC curve from the original publication of the initial balanced test data set.
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+<img src="SaliencyMaps.png" width="320" align="center" />
 
+Figure 2: Saliency maps of the original publication of the initial balanced test data set.
+
+## Pre-requesites:
+
+* Linux (Tested on Ubuntu 22.04)
+* NVIDIA GPU (Tested on Nvidia GeForce RTX 2080 Ti x 12 on local workstations)
+* Python (3.10), nibabel (5.1.0), torch (2.1.2), monai (1.2.0), numpy (1.24.3), tqdm (4.62.3), scikit-learn (1.3.0), matplotlib (3.4.3).
+
+### Basic, Fully Automated Run
+``` shell
+python main.py --batch_size 1 --path /your/path/to/the/data --seed 42 --model /Path/To/Model --device cuda 
 ```
-cd existing_repo
-git remote add origin https://git.dkfz.de/mic/personal/group6/neuro/iscience_gliolymph_classification.git
-git branch -M main
-git push -uf origin main
+
+
+### Datasets
+Please structure your dataset as follows:
+```bash
+        path/
+                ├── Glioblastom
+                        ├── img_caseG1_0000.nii.gz (FLAIR)
+                        ├── img_caseG1_0001.nii.gz (T1)
+                        ├── img_caseG1_0002.nii.gz (T1ce)
+                        ├── img_caseG1_0003.nii.gz (T2)
+                        ├── img_caseG1_seg.nii.gz (segmentation)
+                        ├── img_caseG2_0000.nii.gz (FLAIR)
+                        ├── img_caseG2_0001.nii.gz (T1)
+                        ├── img_caseG2_0002.nii.gz (T1ce)
+                        ├── img_caseG2_0003.nii.gz (T2)
+                        ├── img_caseG2_seg.nii.gz (segmentation)
+                        └── ...
+                └── Lymphom
+                        ├── img_caseL1_0000.nii.gz (FLAIR)
+                        ├── img_caseL1_0001.nii.gz (T1)
+                        ├── img_caseL1_0002.nii.gz (T1ce)
+                        ├── img_caseL1_0003.nii.gz (T2)
+                        ├── img_caseL1_seg.nii.gz (segmentation)
+                        ├── img_caseL2_0000.nii.gz (FLAIR)
+                        ├── img_caseL2_0001.nii.gz (T1)
+                        ├── img_caseL2_0002.nii.gz (T1ce)
+                        ├── img_caseL2_0003.nii.gz (T2)
+                        ├── img_caseL2_seg.nii.gz (segmentation)
+                        └── ...
 ```
+where G1 or L1 are the identifiers for the subjects. Each subject is expected to have all four modalities available 0000, 0001, 0002, 0003 and a segmentation.
 
-## Integrate with your tools
 
-- [ ] [Set up project integrations](https://git.dkfz.de/mic/personal/group6/neuro/iscience_gliolymph_classification/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
 
 ## License
-For open source projects, say how it is licensed.
+This project is made avialble under the CreativeCommons License. See the LICENSE file for more details.
+## Reference
+If you find our work useful in your research or use parts of this code please consider citing our paper:
+```
+@article{GlioLymphDifferentiation,
+  title={Development of a deep-learning model for the preoperative diagnosis of Primary Central Nervous System Lymphoma},
+  author={Paul Vincent Naser, Miriam Maurer, Maximilian Fischer, Kianush Karimian-Jazi, Chiraz Ben-Salah, Awais Akbar Bajwa, Martin Jakobs, Jessica Jesser, Martin Bendszus, Klaus Maier-Hein, Sandro M. Krieg, Peter Neher, Jan-Oliver Neumann},
+  journal={iScience},
+  year={2024},
+  publisher={iScience}
+}
+```
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
