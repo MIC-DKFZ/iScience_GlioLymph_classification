@@ -79,7 +79,7 @@ where G1 or L1 are the identifiers for the subjects. Each subject is expected to
 
 
 ## License
-This project is made avialble under the CreativeCommons License. See the LICENSE file for more details.
+This project is made avialble under the CreativeCommons License. See the (LICENSE.md) file for more details.
 ## Reference
 If you find our work useful in your research or use parts of this code please consider citing our paper:
 ```
