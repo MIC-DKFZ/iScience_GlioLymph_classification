@@ -85,7 +85,7 @@ If you find our work useful in your research or use parts of this code please co
 ```
 @article{GlioLymphDifferentiation,
   title={Development of a deep-learning model for the preoperative diagnosis of Primary Central Nervous System Lymphoma},
-  author={Paul Vincent Naser, Miriam Maurer, Maximilian Fischer, Kianush Karimian-Jazi, Chiraz Ben-Salah, Awais Akbar Bajwa, Martin Jakobs, Jessica Jesser, Martin Bendszus, Klaus Maier-Hein, Sandro M. Krieg, Peter Neher, Jan-Oliver Neumann},
+  author={Paul Vincent Naser, Miriam Cindy Maurer, Maximilian Fischer, Kianush Karimian-Jazi, Chiraz Ben-Salah, Awais Akbar Bajwa, Martin Jakobs, Jessica Jesser, Martin Bendszus, Klaus Maier-Hein, Sandro M. Krieg, Peter Neher, Jan-Oliver Neumann},
   journal={iScience},
   year={2024},
   publisher={iScience}
