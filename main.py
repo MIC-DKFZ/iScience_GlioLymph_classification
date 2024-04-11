@@ -1,3 +1,13 @@
+#    Copyright 2024 Division of Medical Image Computing, German Cancer Research Center (DKFZ), Heidelberg, Germany
+#
+#    Licensed under the Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0 DEED);
+#    you may not use this file except in compliance with the License.
+#    You may obtain a copy of the License at
+#
+#        https://creativecommons.org/licenses/by-nc/4.0/deed.en
+#
+
+
 import sys
 import numpy as np
 import torch
