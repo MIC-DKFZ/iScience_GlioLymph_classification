@@ -97,3 +97,6 @@ Copyright German Cancer Research Center (DKFZ) and contributors.
 Please make sure that your usage of this code is in compliance with its
 license.
 <img src="docs/dkfz_logo.png" height="100px" />
+
+## Acknowledgement
+This work was partially funded by the Research Campus M2OLIE, which was funded by the German Federal Ministry of Education and Research (BMBF) within the Framework “Forschungscampus: Public-private partnership for Innovations” under the funding code 13GW0388A.
