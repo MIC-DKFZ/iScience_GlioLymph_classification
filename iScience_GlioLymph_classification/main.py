@@ -23,7 +23,7 @@ def seed_everything(seed):
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
-    torch.cuda.manual_seed(seed)
+    #torch.cuda.manual_seed(seed)
     torch.backends.cudnn.deterministic=True
     torch.backends.cudnn.benchmark=True
 
@@ -45,20 +45,20 @@ def predict_cases(model,loader,device):
             predictions.extend([result.detach().cpu().numpy()])
         testPred=np.array(predictions)
         testLab=np.array(labels)
-        score=roc_auc_score(testLab,testPred[:,0,0])
-        fpr, tpr, threshold = roc_curve(testLab, testPred[:, 0, 0], pos_label=1)
-        plt.figure()
-        plt.plot(fpr, tpr,label=f'Class (AUC = {score:.2f})')
-        plt.legend(loc='lower right')
-        return score
+        #score=roc_auc_score(testLab,testPred[:,0,0])
+        #fpr, tpr, threshold = roc_curve(testLab, testPred[:, 0, 0], pos_label=1)
+        #plt.figure()
+        #plt.plot(fpr, tpr,label=f'Class (AUC = {score:.2f})')
+        #plt.legend(loc='lower right')
+        return testPred
 
 def parse_args(argv):
     parser=argparse.ArgumentParser()
     parser.add_argument("-b","--batch_size",type=int,help="batch size",default=1)
-    parser.add_argument("-p","--path",type=str,help="Path to data location",default="./")
+    parser.add_argument("-p","--path",type=str,help="Path to data location",default="/inputdata")
     parser.add_argument("-s","--seed",type=int,help="Which Seed",default=42)
     parser.add_argument("-m","--model",type=str,help="Path to trained model",default="./densenet169_batch_14.pth")
-    parser.add_argument("-d","--device",type=str,help="Device to use Cuda or CPU",default="cuda")
+    parser.add_argument("-d","--device",type=str,help="Device to use Cuda or CPU",default="cpu")
     args=parser.parse_args(argv)
     return args
 
@@ -66,7 +66,7 @@ def parse_args(argv):
 
 def main(args):
     seed_everything(args.seed)
-    model=torch.load(args.model)
+    model=torch.load(args.model,map_location=torch.device('cpu'))
     model.eval()
     trans_img = [T.ToTensor(),T.NormalizeIntensity()]
     transform=T.Compose(trans_img)

@@ -1,0 +1,33 @@
+FROM ubuntu:22.04
+#FROM nvcr.io/nvidia/pytorch:24.07-py3
+
+## Copy requirements
+COPY ./iScience_GlioLymph_classification ./iScience_GlioLymph_classification
+COPY ./sample_data ./inpudata
+
+## Install Python packages in Docker image
+
+RUN pip3 install --upgrade pip
+
+
+WORKDIR /workspace/iScience_GlioLymph_classification
+
+RUN mkdir /myhome/
+RUN mkdir /inpudata/
+RUN mkdir /outputdata/
+RUN mkdir /ckpts/
+RUN chmod -R 777 /myhome
+RUN pip3 install -r /workspace/iScience_GlioLymph_classification/requirements.txt
+
+
+
+
+
+ENTRYPOINT ["python3", "main.py"]
+
+
+CMD ["--batch_size=1", "--device=cpu"]
+
+#python main.py --batch_size 1 --path /your/path/to/the/data --seed 42 --model /Path/To/Model --device cuda 
+
+#ENTRYPOINT ["/bin/bash", "-l", "-c"]
