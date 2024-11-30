@@ -88,4 +88,5 @@ class UKHD_Dataset(Dataset):
         images.append(mask)
         img = torch.stack(images)
         img = img.squeeze(dim = 1)
-        return img, label
+        _,subj_id=os.path.split(self.image_list[idx][0])
+        return img, label, subj_id

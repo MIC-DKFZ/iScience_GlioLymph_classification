@@ -8,8 +8,8 @@ RUN apt-get update && apt-get install -y \
 
 # Copy project files
 COPY ./iScience_GlioLymph_classification ./iScience_GlioLymph_classification
-COPY ./sample_data ./inputdata/test/Glioblastom
-COPY ./sample_data ./inputdata/test/Lymphom
+COPY ./sample_data ./inputdata
+COPY ./sample_data ./inputdata
 
 # Set working directory
 WORKDIR /iScience_GlioLymph_classification
